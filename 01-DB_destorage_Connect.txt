@@ -1,0 +1,20 @@
+#==========================================================================================
+#
+# Connect DB
+#
+#==========================================================================================
+
+mysql -u seoil -p
+
+
+SELECT user,host,plugin,authentication_string FROM mysql.user;
+
+
+SHOW DATABASES;
+
+use login;
+
+SHOW TABLES;
+
+
+

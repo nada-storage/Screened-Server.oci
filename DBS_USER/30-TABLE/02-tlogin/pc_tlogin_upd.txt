@@ -1,0 +1,64 @@
+-- =====================================================================================================================
+--
+-- pc_tlogin_upd
+--
+-- =====================================================================================================================
+    
+DROP PROCEDURE IF EXISTS pc_tlogin_upd;
+
+DELIMITER $$
+CREATE PROCEDURE pc_tlogin_upd (
+  IN  p_logid VARCHAR(32), 
+  IN  p_passwd VARCHAR(32),
+  OUT p_result VARCHAR(10),
+  OUT p_result2 VARCHAR(128)
+)
+sp: BEGIN
+
+
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    GET DIAGNOSTICS CONDITION 1 @sqlstate = RETURNED_SQLSTATE, 
+    @errno = MYSQL_ERRNO, @text = MESSAGE_TEXT;
+    SET p_result2 = CONCAT("ERROR: ", @errno, " (", @sqlstate, ")-> ", @text);
+    SET p_result = -101;
+  END;
+  
+  IF LENGTH(p_logid) < 7 THEN
+    SET p_result = -2;
+    SET p_result2 = "FAIL: p_logid must be at least length 7";
+    LEAVE sp; 
+  END IF;
+
+  IF LENGTH(p_passwd) < 8 THEN
+    SET p_result = -3;
+    SET p_result2 = "FAIL: p_passwd must be at least length 8";
+    LEAVE sp; 
+  END IF;
+ 
+
+ 
+  UPDATE tlogin a
+    SET
+      a.passwd = p_passwd
+    WHERE a.id = p_logid
+  ;
+
+  SET p_result = ROW_COUNT();
+
+  IF (p_result = 0) THEN
+    SET p_result2 = "SUCC: did not anything";
+  ELSE 
+    SET p_result2 = "SUCC: procedure executed successfully";
+  END IF; 
+
+
+END $$
+
+DELIMITER ;
+
+
+
+
+
+

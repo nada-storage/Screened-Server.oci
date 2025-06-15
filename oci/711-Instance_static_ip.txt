@@ -1,0 +1,28 @@
+
+//==========================================================================================
+//
+//  instacedp 고정 public IP 할당
+//
+//==========================================================================================
+
+>> Compute::Instances::{instname}
+   Compartment : {study00}
+
+
+//------------------------------------------------------------------------------------------
+//
+// Attaching to static public IP 
+//
+//------------------------------------------------------------------------------------------
+
+>> Compute::Instances::networking::Attached VNICs
+>>{uuuuu_NIC}::IP administration::(click ellipsis)::Edit
+  ::Edit Private IP Address
+  Reserved public IP : checked
+  Select Existing Reserved IP Address : checked --> {study00} {vvvvv_IP}
+  ::Route Table
+  Select custom route table for the IP address : checked
+  Route Table : Default Route Table for {vvvvv_VCN}
+
+
+

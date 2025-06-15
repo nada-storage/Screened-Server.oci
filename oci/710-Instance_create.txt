@@ -1,0 +1,47 @@
+
+//==========================================================================================
+//
+//  instance 만들기
+//
+//==========================================================================================
+
+>> Compute::Instances
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create instance for {uuuuu}
+//
+//------------------------------------------------------------------------------------------
+
+>> Create Instance
+  ::Basic Information
+  name : {uuuuu}
+  Compartment : {study00}
+  Image : if 
+            using custom image 
+          then
+            My images::Custom images(select Custom image name)>>Select image
+          else
+            Ubuntu(select Canonical Ubuntu 22.04)>>Select image
+          end
+  shape : Specialty and previous generation::VM.Standard.E2.1.Micro(무료, 단 2대만 제공) 또는 VM.Standard.E2.1(유료중 저가) 
+VM.Standard.E4.Flex
+
+
+  ::Security
+  Do not touch any options.
+
+  ::Networking
+  name : {uuuuu_VNIC}
+  Primary network(Select existing virtual cloud network) -> {study00} {vvvvv_VCN}
+  Subnet(Select existing subnet) -> {study00} {vvvvv_Subnet}
+
+  ::Primary VNIC IP addresses
+  Private IPv4 address(Manually assign private IPv4 address) : 10.X.X.X(10.X.X.2 ~ 10.X.X.254범위만 유효 ) --> Private IP는 생성 후 변경 불가
+  Automatically assign public IPv4 address : unchecked (나중에 고정 public IP 할당할 것임) 또는 checked (임시 public IP사용)
+  Add SSH keys : (Paste public key)
+
+>> Create
+
+

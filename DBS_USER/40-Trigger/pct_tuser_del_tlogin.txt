@@ -1,0 +1,22 @@
+-- =====================================================================================================================
+--
+-- pct_tuser_del_tlogin
+--
+-- =====================================================================================================================
+   
+DROP TRIGGER IF EXISTS pct_tuser_del_tlogin;
+
+DELIMITER $$
+CREATE TRIGGER pct_tuser_del_tlogin 
+  AFTER DELETE 
+  ON tuser FOR EACH ROW 
+BEGIN
+
+  DELETE FROM tlogin 
+    WHERE tlogin.tuser_id = OLD.id;
+
+END $$  
+DELIMITER ;
+
+
+

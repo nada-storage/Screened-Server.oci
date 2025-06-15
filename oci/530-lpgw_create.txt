@@ -1,0 +1,19 @@
+//==========================================================================================
+//
+//  Create Local Peer Gateway for vvvvv_VCN_LPGW
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Gateways::Local Peering Gateways -> Create Local Peering Gateway
+  name : {vvvvv_VCN_LPGW}
+  Create In Compartment : {study00}
+>> Create Local Peering Gateway

@@ -1,0 +1,58 @@
+
+
+//==============================
+
+  Ubuntu 20.04 
+
+//==============================
+
+1. root 패스워드 설정
+    패스워드 설정 $ sudo passwd root
+    패스워드 확인 $ su
+
+2. 그룹아이디 생성(uid= elliott; gid=tema_z;)
+
+    그룹아이디 확인 $ tail /etc/group
+    그룹아이디 이름변경(ubuntu -> tema_z) $ sudo groupmod -n tema_z ubuntu
+    또는
+    그룹아이디 생성(1002: tema_z) $ sudo groupadd -g 1002 tema_z
+
+3. 유저 생성
+    유저정보 확인(elliott) $ grep elliott /etc/passwd
+    유저아이디 확인 $ tail /etc/passwd
+    
+
+
+    유저아이디 생성(elliott) $ sudo useradd -m -d /home/elliott -g team_z -u 1002 -s /bin/bash elliott
+    패스워드 설정(elliott) $ sudo passwd elliott   
+    
+ 
+    
+    
+
+4. sudo 리스트에 등록(반드시)
+    $ sudo vi -f /etc/sudoers
+
+    root 밑에 elliott 추가
+    # User privilege specification
+    root    ALL=(ALL:ALL) ALL
+    elliott  ALL=(ALL:ALL) ALL
+
+5. ssh 설정
+5.1. 패스워드 접속시 
+    패스워드 접속허용 $ sudo vi /etc/ssh/sshd_config -> PasswordAuthentication yes    
+    서비스 다시시작 $ sudo /etc/init.d/ssh restart    
+5.2. 개인키 접속    
+    키 접속허용 $ sudo vi /etc/ssh/sshd_config -> PasswordAuthentication no
+    서비스 다시시작 $ sudo /etc/init.d/ssh restart    
+    퍼블릭키 추가 --> $ echo 퍼블릭키값 > .ssh/authorized_keys    
+    
+6. 로그아웃후 다시 로그인하여 이전 유저아이디 삭제(ubuntu) 
+  $ sudo ubuntu -r uid --> 로그인한 유저를 삭제하지 말것, 반드시 다른 계정으로 로그인한 후 삭제.
+   
+
+
+
+    
+
+    

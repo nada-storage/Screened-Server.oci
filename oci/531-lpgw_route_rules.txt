@@ -1,0 +1,22 @@
+
+///==========================================================================================
+//
+//  Add Route Rules - Internet Gateway
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create Internet Gateway 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Routing::Route Tables::Default Route Table for {vvvvv_VCN} -> Route Rules::Add Route Rules
+  Target Type : Local Peering Gateway
+  Destination CIDR Block : 10.X.X.X/XX
+  Target Local Peering Gateway compartment : {study00}
+  Target Local Peering Gateway : {vvvvv_VCN_LPGW}
+>> Add Route Rules

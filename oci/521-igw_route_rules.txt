@@ -1,0 +1,22 @@
+
+///==========================================================================================
+//
+//  Add Route Rules - Internet Gateway
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create Internet Gateway 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Routing::Route Tables::Default Route Table for {vvvvv_VCN} -> Route Rules::Add Route Rules
+  Target Type : Internet Gateway
+  Destination CIDR Block : 0.0.0.0/0
+  Target Internet Gateway compartment : {study00}
+  Target Internet Gateway : {vvvvv_VCN_IGW}
+>> Add Route Rules

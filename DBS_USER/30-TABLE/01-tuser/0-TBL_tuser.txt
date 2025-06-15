@@ -1,0 +1,29 @@
+-- =====================================================================================================================
+--
+-- tuser
+--
+-- =====================================================================================================================
+    
+DROP TABLE IF EXISTS tuser;
+
+
+CREATE TABLE tuser (  
+
+  id VARCHAR(32) NOT NULL,
+
+  name VARCHAR(32) NOT NULL,
+
+
+
+  dt7 TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+
+  dt8 TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (id)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DESC tuser;
+show index from tuser;
+

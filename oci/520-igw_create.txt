@@ -1,0 +1,21 @@
+//==========================================================================================
+//
+//  Create Internet Gateway for vvvvv_VCN_IGW
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Gateways::Internet Gateways -> Create Internet Gateway
+  name : {vvvvv_VCN.IGW}
+  Create In Compartment : {study00}
+>> Create Internet Gateway
+
+

@@ -1,0 +1,19 @@
+//==========================================================================================
+//
+//  Create Security Lists in vvvvv_VCN
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Security -> Security Lists::Create Security List
+  name : {vvvvv_SecurityList}
+  Create In Compartment : {study00}
+>> Create Security List

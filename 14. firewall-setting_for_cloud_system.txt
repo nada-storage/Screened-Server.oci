@@ -1,0 +1,39 @@
+
+
+
+오라클 방화벽이 있으니 우분투 방화벽을 무력화 시킨다.
+
+
+1. 확인
+  sudo iptables -L
+
+2. 백업
+  sudo iptables-save > ~/iptables-rules
+
+3. 제거
+  sudo iptables -P INPUT ACCEPT
+  sudo iptables -P OUTPUT ACCEPT
+  sudo iptables -P FORWARD ACCEPT
+  sudo iptables -F
+
+4. 제거 확인
+  sudo iptables -L
+
+  결과는 아래와 같다.
+  	Chain INPUT (policy ACCEPT)
+	target     prot opt source               destination         
+
+	Chain FORWARD (policy ACCEPT)
+	target     prot opt source               destination         
+
+	Chain OUTPUT (policy ACCEPT)
+	target     prot opt source               destination         
+
+	Chain InstanceServices (0 references)
+	target     prot opt source               destination 
+
+5. 영구적용
+  sudo  /usr/sbin/netfilter-persistent save
+  sudo netfilter-persistent start
+
+

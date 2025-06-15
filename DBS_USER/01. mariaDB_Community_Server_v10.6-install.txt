@@ -1,0 +1,135 @@
+
+##==========================================================================================
+##
+## Install Download MariaDB Community Server version 10.6.7-GA for Ubuntu 18.04 amd
+##
+## file download : https://mariadb.com/downloads/
+##
+## file link : https://dlm.mariadb.com/2139694/MariaDB/mariadb-10.6.7/repo/ubuntu/mariadb-10.6.7-ubuntu-bionic-amd64-debs.tar
+##==========================================================================================
+
+## The MariaDB/MySQL tools read configuration files in the following order:
+## 0. "/etc/mysql/my.cnf" symlinks to this file, reason why all the rest is read.
+## 1. "/etc/mysql/mariadb.cnf" (this file) to set global defaults,
+## 2. "/etc/mysql/conf.d/*.cnf" to set global options.
+## 3. "/etc/mysql/mariadb.conf.d/*.cnf" to set MariaDB-only options.
+## 4. "~/.my.cnf" to set user-specific options.
+
+
+
+##------------------------------------------------------------------------------------------
+##
+## 1. Install
+##
+##------------------------------------------------------------------------------------------
+
+mkdir temp
+
+cd temp 
+
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.6"
+
+sudo apt install mariadb-server mariadb-client mariadb-backup
+
+sudo systemctl status mariadb.service
+## press Ctrl-C for exit
+
+mysql -V
+
+
+
+
+
+##------------------------------------------------------------------------------------------
+##
+## 2. To prevent unintended upgrades
+##
+##------------------------------------------------------------------------------------------
+
+echo "mariadb-server hold" | sudo dpkg --set-selections
+echo "mariadb-client hold" | sudo dpkg --set-selections
+echo "mariadb-backup hold" | sudo dpkg --set-selections
+
+
+
+
+
+##------------------------------------------------------------------------------------------
+##
+## 3. Start service
+##
+##------------------------------------------------------------------------------------------
+
+## Init System 확인
+ps --no-headers -o comm 1
+
+sudo systemctl start mariadb.service
+
+sudo systemctl status mariadb.service
+
+## 재부팅해도 자동실행하도록 설정
+sudo systemctl enable mariadb.service
+
+
+##------------------------------------------------------------------------------------------
+##
+## 4. Validate Resource Limits
+##
+##------------------------------------------------------------------------------------------
+
+## PID 확인
+ps -ef | grep -v grep | grep mariadbd
+cat /proc/PID/limits
+
+
+
+##------------------------------------------------------------------------------------------
+##
+## 5. 보안 설정
+##
+##------------------------------------------------------------------------------------------
+## ref : 
+##  https://mariadb.com/kb/en/mysql_secure_installation/
+##  https://mariadb.com/kb/en/authentication-plugin-unix-socket/ 
+
+## issue ref : 
+##  https://jhrogue.blogspot.com/2020/02/b-mariadb-root-feat-unixsocket.html
+##  https://www.nemonein.xyz/2019/07/2254/
+
+sudo mysql_secure_installation
+## Enter current password for root (enter for none): --> press Enter
+## Switch to unix_socket authentication [Y/n] --> n
+## Change the root password? [Y/n] --> press Enter
+## New password: tjdlfai_maria
+
+##------------------------------------------------------------------------------------------
+##
+## 6. Change port 
+##
+##------------------------------------------------------------------------------------------
+
+sudo vi  /etc/mysql/my.cnf
+-> [client-server]
+port = 13890
+
+sudo systemctl restart mariadb
+
+
+
+##------------------------------------------------------------------------------------------
+##
+## 7. Change IP 
+##
+##------------------------------------------------------------------------------------------
+
+sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf 
+
+>>for local connect
+bind-address            = 127.0.0.1
+or
+>>for remote connect
+bind-address            = 0.0.0.0
+
+
+sudo systemctl restart mariadb
+

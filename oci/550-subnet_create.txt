@@ -1,0 +1,23 @@
+//==========================================================================================
+//
+//  Create Subnet in vvvvv_VCN
+//
+//==========================================================================================
+
+>> Networking::Virtual Cloud Network
+   Compartment : {study00}
+
+//------------------------------------------------------------------------------------------
+//
+// Create 
+//
+//------------------------------------------------------------------------------------------
+
+>> vvvvv_VCN -> Security -> Subnets::Create Subnet
+  name : {vvvvv_Subnet}
+  Create In Compartment : {study00}
+  IPv4 CIDR Blocks : 10.X.X.0/24
+  Subnet Access : Private Subnet or Public Subnet
+  DNS Resolution : not use
+  Security Lists : Default Security List for {vvvvv_VCN} and {vvvvv_SecurityList} and ...
+>> Create Subnet

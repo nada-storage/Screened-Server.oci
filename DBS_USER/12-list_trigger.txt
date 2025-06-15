@@ -1,0 +1,31 @@
+SET @var_TRIGGER_SCHEMA = 'destorage';
+
+
+SELECT
+  TRIGGER_SCHEMA            -- (*)
+--  ,TRIGGER_CATALOG           
+  ,TRIGGER_NAME              -- (*)
+  ,EVENT_MANIPULATION        -- (*)
+--  ,EVENT_OBJECT_CATALOG       
+  ,concat(EVENT_OBJECT_SCHEMA, '.' ,EVENT_OBJECT_TABLE) as trigger_table        -- (*)
+--  ,ACTION_ORDER              
+--  ,ACTION_CONDITION          
+--  ,ACTION_STATEMENT          -- ( long )
+  ,ACTION_ORIENTATION        -- (*)
+  ,ACTION_TIMING             -- (*)
+--  ,ACTION_REFERENCE_OLD_TABLE
+--  ,ACTION_REFERENCE_NEW_TABLE
+--  ,ACTION_REFERENCE_OLD_ROW  
+--  ,ACTION_REFERENCE_NEW_ROW  
+  ,CREATED                   -- (*)
+--  ,SQL_MODE                  
+--  ,DEFINER                   
+--  ,CHARACTER_SET_CLIENT      
+--  ,COLLATION_CONNECTION      
+--  ,DATABASE_COLLATION        
+FROM INFORMATION_SCHEMA.TRIGGERS  
+  WHERE TRIGGER_SCHEMA NOT IN ('sys','information_schema', 'mysql', 'performance_schema')
+    AND TRIGGER_SCHEMA = @var_TRIGGER_SCHEMA
+  ORDER BY TRIGGER_SCHEMA, TRIGGER_NAME
+;
+
